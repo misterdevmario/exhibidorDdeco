@@ -20,12 +20,12 @@ export default function recorridoVirtual() {
   return (
     <>
       <Head>
-        <title>Recorrido virtual | TL apps</title>
+        <title>Recorrido virtual | TL apps ddeco</title>
         <meta name="description" content="Recorrido virtual" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicontlapps.svg" />
       </Head>
-      <NavBar />
+      {/* <NavBar /> */}
       <main className="frame_container">
         <iframe
           src="https://my.matterport.com/show/?m=VdY42iYK1r5&play=1"

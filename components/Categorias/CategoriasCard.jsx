@@ -1,4 +1,3 @@
-
 /**Este código define un componente React llamado `CategoriasCard` que muestra un conjunto de tarjetas que contienen categorías, con cada tarjeta que muestra una imagen y un nombre de la categoría.
 
 El componente toma una sola prop: 'categoría', el cual es un arreglo de objetos que contienen información sobre cada categoría. El hook `useRouter` de Next.js se usa para manejar el enrutamiento, y el componente 'Image` de Next.js se usa para mostrar las imágenes.
@@ -11,14 +10,19 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "./CategoriasCard.module.css";
 
-const CategoriasCard = ({ category }) => {
+const CategoriasCard = ({ category, ddecoCategory }) => {
   const router = useRouter();
   const goProducts = (id) => {
     router.push(`/ddeco/categoria/${id}`);
   };
+  const bg = ddecoCategory.map((item) => item.bgImage);
 
   return (
     <div className={styles.container}>
+      <div className={styles.background}>
+        <Image src={bg[0].toString()} alt="logo" width={215} height={150} priority quality={100} />
+      </div>
+
       <div className={styles.card_container}>
         {category.map((item) => (
           <div

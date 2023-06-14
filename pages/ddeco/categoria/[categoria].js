@@ -18,7 +18,7 @@ import Pagination from "../../../components/Pagination/Pagination";
 
 
 
-function Products({ products, categories, categoriesFiltered }) {
+function Products({ products, categories, categoriesFiltered, ddecoCategory }) {
 
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,6 +54,7 @@ en un botón de paginación. */
         categories={categories}
         categoriesFiltered={categoriesFiltered}
         products={products}
+        ddecoCategory={ddecoCategory}
       />
       <main>
         <ShowAllProducts
@@ -98,6 +99,19 @@ export async function getStaticProps() {
     "https://tlappshop.com/apis/api/products?populate=sub_category,categories,thumbnail,ficha,instructivo,accesorios,galeria&filters[categories][category][$eq]=Tlapps ddeco&pagination[limit]=800"
   );
 
+  //En esta peticion se obtienen las imagenes del backround de la carta de la categoria ddeco del exhibidor, la imagen de fondo de la seccion home ddeco y el logo de la misma 
+  const oneDdecoCategory = await axios.get(
+    "https://tlappshop.com/apis/api/categories?filters[Category][$eq]=Tlapps Ddeco&populate=cover,background,thumbnail"
+  );
+
+  const ddecoCategory = oneDdecoCategory.data.data.map(item => (
+    {
+      cardImg: item.attributes.cover.data.attributes.formats.large.url,
+      bgImage: item.attributes.background.data.map(item => item.attributes.formats.large.url),
+      logoDdeco: item.attributes.thumbnail.data.map(item => item.attributes.url)
+    }
+  ))
+
   const categories = allCategories.data.data.map((item) => ({
     id: item.id,
     category: item.attributes.subCategory,
@@ -115,6 +129,8 @@ export async function getStaticProps() {
     img: item.attributes.thumbnail.data.attributes.url,
     category: item.attributes.sub_category.data.attributes.subCategory,
   }));
+
+
 
   //Renderizado condicional de categorias en relacion a la existencia del producto
 
@@ -152,6 +168,7 @@ export async function getStaticProps() {
     props: {
       categoriesFiltered,
       products,
+      ddecoCategory
     },
     revalidate: 10,
   };

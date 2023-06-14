@@ -14,7 +14,7 @@ import { CgSearchLoading } from "react-icons/cg";
 import styles from "./Navbar.module.css";
 import Search from "../Search/Search";
 
-const NavBar = ({ product, products, categoriesFiltered }) => {
+const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
 
   const router = useRouter();
 
@@ -23,6 +23,7 @@ const NavBar = ({ product, products, categoriesFiltered }) => {
   const [input, setInput] = useState("");
   const [result, setResult] = useState([]);
 
+  const bg = ddecoCategory.map((item) => item.logoDdeco);
 
 
 /**
@@ -65,9 +66,9 @@ const NavBar = ({ product, products, categoriesFiltered }) => {
 
   return (
     <div className={styles.navbar_container}>
-      <Link className={styles.navbar_container_logo} href="/ddeco/categorias">
+      <Link className={styles.navbar_container_logo} href="https://exhibidordigital.vercel.app/categorias">
         <Image
-          src="/logo.svg"
+          src={bg[0].toString()}
           alt="TL apps logo"
           width={180}
           height={180}
@@ -95,7 +96,7 @@ const NavBar = ({ product, products, categoriesFiltered }) => {
         <div className={styles.navbar_toggle_items}>
           <Link href="/ddeco/categorias">
             <Image
-              src="/logo.svg"
+             src={bg[0].toString()}
               alt="TL apps logo"
               width={150}
               height={150}
@@ -105,7 +106,7 @@ const NavBar = ({ product, products, categoriesFiltered }) => {
 {/* Este apartado del componente se muestra cuando el ancho la pantalla es menor o igual 768px renderiza condicionalmente dependiendo de `router.pathname` ya sea el icono del dropdown menu o el icono para ir al recorrido virtual. La funcionalidad del abre y cierre del dropdown menu que muestra el componente `SideBar.jsx` esta dada por el hook useState `setToggleSideBar`  */}
 
           {router.pathname === "/ddeco/recorridovirtual" ? (
-            <RxHome size={40} onClick = {() => router.push("/categorias")}/>
+            <RxHome size={40} onClick = {() => router.push("/ddeco/categorias")}/>
           ) : toggleSideBar ? (
             <RiCloseCircleLine
               className="bsmenudown"

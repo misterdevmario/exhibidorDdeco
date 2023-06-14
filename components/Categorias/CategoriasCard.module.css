@@ -6,10 +6,22 @@
   align-items: center;
   font-weight: var(--font-weight-bold);
   overflow-x: hidden;
-  background-image: url("../../public/bgcategorias.jpg");
   background-size: cover;
+  position: relative;
 }
 
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* background-image: url("https://tlappshop-imagenes.s3.amazonaws.com/large_Fondo_de_prueba_T_Lapps_ddeco_2_1d844c6051.webp"); */
+}
+
+.background img {
+  width: 100%;
+  height: auto;
+}
 
 .card_container {
   width: 95vw;
@@ -42,9 +54,6 @@
   justify-content: flex-start;
   align-items: center;
   font-size: var(--font-lg);
-
-
-  
 }
 @media screen and (max-width: 1400px) {
   .card,
@@ -60,8 +69,8 @@
   }
 }
 @media screen and (max-width: 468px) {
-  .container{
-    background-image: url("../../public/bgcategoriassm.png")
+  .container {
+    background-image: url("../../public/bgcategoriassm.png");
   }
   .card_name {
     font-size: var(--font-sm);
@@ -71,5 +80,4 @@
     width: calc(16vw + 100px);
     height: calc(0vw + 100px);
   }
-
 }
