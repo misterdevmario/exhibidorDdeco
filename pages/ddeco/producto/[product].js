@@ -18,7 +18,7 @@ function Producto({ product, categories, products, categoriesFiltered, ddecoCate
   return (
     <>
       <Head>
-        <title>Producto | TL apps ddeco</title>
+        <title>Producto | TLapps ddeco</title>
         <meta name="description" content="Inicio de sesion" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicontlapps.svg" />
@@ -62,13 +62,14 @@ export async function getStaticPaths() {
 export async function getStaticProps(ctx) {
   const categoriesFiltered = [];
   const id = ctx.params.product;
+
   const allCategories = await axios.get(
     "https://tlappshop.com/apis/api/sub-categories?filters[catalogo][$eq]=true&filters[category][category][$eq]=Tlapps ddeco&populate=*&pagination[limit]=800"
   );
   const allProducts = await axios.get(
     "https://tlappshop.com/apis/api/products?populate=sub_category,categories,thumbnail,ficha,instructivo,accesorios,galeria&filters[categories][category][$eq]=Tlapps ddeco&pagination[limit]=800"
   );
-
+console.log(allCategories.data.data)
   const oneProduct = await axios.get(
     `https://tlappshop.com/apis/api/products/${id}?populate=sub_category,categories,thumbnail,ficha,instructivo,accesorios,galeria&filters[categories][category][$eq]=Tlapps ddeco&pagination[limit]=800`
   );
@@ -87,13 +88,13 @@ export async function getStaticProps(ctx) {
     ))
   
 
-  const categories = allCategories.data.data.map((item) => ({
-    id: item.id,
-    category: item.attributes.subCategory,
-    image: item.attributes.cover.data.map((item) => item.attributes.url),
-    bgImage: item.attributes.background.data.map((item) => item),
-    thumbImg: item.attributes.thumbnail.data.map((item) => item),
-  }));
+    const categories = allCategories.data.data.map((item) => ({
+      id: item.id,
+      category: item.attributes.subCategory,
+      img: item.attributes.cover.data.map((item) => item.attributes.url),
+      bgImage: item.attributes.background.data.map((item) => item.attributes.formats.large.url),
+      thumbImg: item.attributes.thumbnail.data.map(item => item.attributes.url),
+    }));
   const products = allProducts.data.data.map((item) => ({
     id: item.id,
     name: item.attributes.description,

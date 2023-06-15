@@ -101,7 +101,7 @@ const SideBar = ({ categories, products }) => {
                 <div className={styles.category_name}>{item.category}</div>
               </Link>
               <Image
-                src={item.thumbImg}
+                src={item.thumbImg[0]}
                 width={20}
                 height={20}
                 alt={item.category}

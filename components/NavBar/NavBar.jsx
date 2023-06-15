@@ -23,7 +23,7 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
   const [input, setInput] = useState("");
   const [result, setResult] = useState([]);
 
-  const bg = ddecoCategory.map((item) => item.logoDdeco);
+  const logoDdeco = ddecoCategory.map((item) => item.logoDdeco);
 
 
 /**
@@ -66,10 +66,10 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
 
   return (
     <div className={styles.navbar_container}>
-      <Link className={styles.navbar_container_logo} href="https://exhibidordigital.vercel.app/categorias">
+      <Link className={styles.navbar_container_logo} href="/ddeco/categorias">
         <Image
-          src={bg[0].toString()}
-          alt="TL apps logo"
+          src={logoDdeco[0].toString()}
+          alt="Tlapps ddeco logo"
           width={180}
           height={180}
           priority
@@ -92,18 +92,19 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
           </Link>
         )}
       </div>
+      {/* Este apartado del componente se muestra cuando el ancho la pantalla es menor o igual 768px renderiza condicionalmente dependiendo de `router.pathname` ya sea el icono del dropdown menu o el icono para ir al recorrido virtual. La funcionalidad del abre y cierre del dropdown menu que muestra el componente `SideBar.jsx` esta dada por el hook useState `setToggleSideBar`  */}
       <div className={styles.navbar_toggle}>
         <div className={styles.navbar_toggle_items}>
           <Link href="/ddeco/categorias">
             <Image
-             src={bg[0].toString()}
-              alt="TL apps logo"
-              width={150}
-              height={150}
+             src={logoDdeco[0].toString()}
+              alt="TLapps ddeco logo"
+              width={120}
+              height={120}
               priority
             />
           </Link>
-{/* Este apartado del componente se muestra cuando el ancho la pantalla es menor o igual 768px renderiza condicionalmente dependiendo de `router.pathname` ya sea el icono del dropdown menu o el icono para ir al recorrido virtual. La funcionalidad del abre y cierre del dropdown menu que muestra el componente `SideBar.jsx` esta dada por el hook useState `setToggleSideBar`  */}
+
 
           {router.pathname === "/ddeco/recorridovirtual" ? (
             <RxHome size={40} onClick = {() => router.push("/ddeco/categorias")}/>
@@ -165,10 +166,10 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
                           </div>
                         </Link>
                         <Image
-                          src={item.thumbImg}
+                          src={item.thumbImg[0]}
                           width={35}
                           height={35}
-                          alt="logo"
+                          alt={item.category}
                           priority
                         />
                       </div>

@@ -27,7 +27,7 @@ const ShowOneProduct = ({ product, categories, categoriesFiltered, products }) =
   const router = useRouter();
   let bgImage = categories
     .filter((img) => img.category == product.category)
-    .map((product) => product.img)
+    .map((product) => product.thumbImg)
     .toString();
   const [isOpenVideo, openVideo, closeVideo] = useModal(true);
   const [isOpenFicha, openFicha, closeFicha] = useModal(true);

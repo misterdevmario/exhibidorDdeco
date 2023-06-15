@@ -16,7 +16,7 @@ function Categorias({ categoriesFiltered, products, ddecoCategory }) {
   return (
     <>
       <Head>
-        <title>Categorias | TL apps ddeco</title>
+        <title>Categorias | TLapps ddeco</title>
         <meta name="description" content="Inicio de sesion" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicontlapps.svg" />
@@ -59,9 +59,8 @@ export async function getStaticProps() {
     category: item.attributes.subCategory,
     img: item.attributes.cover.data.map((item) => item.attributes.url),
     bgImage: item.attributes.background.data.map((item) => item.attributes.formats.large.url),
-    thumbImg: item.attributes.thumbnail.data.map((item) => item),
+    thumbImg: item.attributes.thumbnail.data.map(item => item.attributes.url),
   }));
-
   const products = allProducts.data.data.map((item) => ({
     id: item.id,
     name: item.attributes.description,

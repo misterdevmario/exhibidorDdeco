@@ -45,7 +45,7 @@ en un botón de paginación. */
   return (
     <>
       <Head>
-        <title> Productos | TL apps ddeco</title>
+        <title> Productos | TLapps ddeco</title>
         <meta name="description" content="Inicio de sesion" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicontlapps.svg" />
@@ -116,8 +116,8 @@ export async function getStaticProps() {
     id: item.id,
     category: item.attributes.subCategory,
     img: item.attributes.cover.data.map((item) => item.attributes.url),
-    bgImage: item.attributes.background.data.map((item) => item),
-    thumbImg: item.attributes.thumbnail.data.map((item) => item),
+    bgImage: item.attributes.background.data.map((item) => item.attributes.formats.large.url),
+    thumbImg: item.attributes.thumbnail.data.map(item => item.attributes.url),
   }));
 
 
@@ -168,7 +168,8 @@ export async function getStaticProps() {
     props: {
       categoriesFiltered,
       products,
-      ddecoCategory
+      ddecoCategory,
+      categories
     },
     revalidate: 10,
   };

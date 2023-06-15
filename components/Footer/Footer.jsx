@@ -7,7 +7,7 @@ import styles from './Footer.module.css'
 const Footer = () => {
   return (
     <div className={styles.container}>
-        ILUMINAMOS Y DIGITALIZAMOS TUS ESPACIOS | © TL apps - 2022
+        ILUMINAMOS Y DIGITALIZAMOS TUS ESPACIOS | © TLapps - 2023
     </div>
   )
 }

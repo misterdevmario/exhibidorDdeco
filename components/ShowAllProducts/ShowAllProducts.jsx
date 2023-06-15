@@ -18,8 +18,9 @@ import styles from "./ShowProducts.module.css";
 import { useRouter } from "next/router";
 
 const ShowAllProducts = ({ product, products, categories, categoriesFiltered }) => {
+  console.log(categories)
   const router = useRouter();
-  //let bgImage = categories.filter(img => img?.category === router.query.categoria).map(item => item.img).toString()
+  let bgImage = categories.filter(img => img?.category === router.query.categoria).map(item => item.bgImage).toString()
 
 
   const goProduct = (id) => {
@@ -29,14 +30,14 @@ const ShowAllProducts = ({ product, products, categories, categoriesFiltered }) 
     <div className={styles.container}>
       <div className={styles.background}>
         
-        {/* <Image
+        <Image
           src={bgImage}
           alt={router.query.categoria}
           width={1750}
           height={920}
           quality={100}
           priority
-        /> */}
+        />
       </div>
       <SideBar categories={categoriesFiltered} products={products} />
       <div className={styles.card_container}>
