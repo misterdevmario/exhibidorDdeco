@@ -12,7 +12,7 @@ import Navbar from "../../components/NavBar/NavBar";
 import CategoriasCard from "../../components/Categorias/CategoriasCard";
 import Footer from "../../components/Footer/Footer";
 
-function Categorias({ categoriesFiltered, products, ddecoCategory }) {
+function Categorias({ categoriesFiltered, products, ddecoCategory   }) {
   return (
     <>
       <Head>
@@ -21,9 +21,9 @@ function Categorias({ categoriesFiltered, products, ddecoCategory }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicontlapps.svg" />
       </Head>
-      <Navbar categoriesFiltered={categoriesFiltered} products={products} ddecoCategory={ddecoCategory} />
+      <Navbar categoriesFiltered={categoriesFiltered} products={products} ddecoCategory={ddecoCategory}  />
       <main>
-        <CategoriasCard category={categoriesFiltered} ddecoCategory ={ddecoCategory} />
+        <CategoriasCard category={categoriesFiltered} ddecoCategory={ddecoCategory} />
         <Footer />
       </main>
     </>
@@ -43,16 +43,18 @@ export async function getStaticProps() {
 
   //En esta peticion se obtienen las imagenes del backround de la carta de la categoria ddeco del exhibidor, la imagen de fondo de la seccion home ddeco y el logo de la misma 
   const oneDdecoCategory = await axios.get(
-    "https://tlappshop.com/apis/api/categories?filters[Category][$eq]=Tlapps Ddeco&populate=cover,background,thumbnail"
+    "https://tlappshop.com/apis/api/categories?filters[codigo][$eq]=155&populate=cover,background,thumbnail"
   );
 
   const ddecoCategory = oneDdecoCategory.data.data.map(item => (
     {
-      cardImg: item.attributes.cover.data.attributes.formats.large.url,
+      //cardImg: item.attributes.cover.data.attributes.formats.large.url,
       bgImage: item.attributes.background.data.map(item => item.attributes.formats.large.url),
       logoDdeco: item.attributes.thumbnail.data.map(item => item.attributes.url)
     }
   ))
+
+  console.log(ddecoCategory)
 
   const categories = allCategories.data.data.map((item) => ({
     id: item.id,
@@ -107,6 +109,7 @@ export async function getStaticProps() {
       categoriesFiltered,
       products,
       ddecoCategory
+      
     },
     revalidate: 10,
   };

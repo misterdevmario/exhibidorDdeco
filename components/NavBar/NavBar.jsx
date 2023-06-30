@@ -15,7 +15,6 @@ import styles from "./Navbar.module.css";
 import Search from "../Search/Search";
 
 const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
-
   const router = useRouter();
 
   const [title, setTitle] = useState("");
@@ -25,8 +24,7 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
 
   const logoDdeco = ddecoCategory.map((item) => item.logoDdeco);
 
-
-/**
+  /**
  Esta funcion filtra los productos que seran renderizados en el componente `Search.jsx` pasando el arreglo con los productos mediante la prop `input`.
  el parametro `value` esta vinculado a los parametros que vienen de la funcion `handleSearch()`*/
   const filter = (value) => {
@@ -54,10 +52,10 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
       setTitle("Categorías Ddeco");
     }
     if (router.pathname === "/ddeco/categoria/[categoria]") {
-     setTitle(` ${router.query.categoria}`);
+      setTitle(` ${router.query.categoria}`);
     }
     if (router.pathname === "/ddeco/producto/[product]") {
-     setTitle(` ${product.category}`);
+      setTitle(` ${product.category}`);
     }
     if (router.pathname === "/ddeco/recorridovirtual") {
       setTitle("Disfruta nuestro recorrido virtual");
@@ -75,21 +73,40 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
           priority
         />
       </Link>
-      <div className={styles.navbar_container_title} onClick={()=> router.asPath.includes('/ddeco/producto') ? router.push(`/ddeco/categoria/${product.category}`): null}>{title}</div>
+      <div
+        className={styles.navbar_container_title}
+        onClick={() =>
+          router.asPath.includes("/ddeco/producto")
+            ? router.push(`/ddeco/categoria/${product.category}`)
+            : null
+        }
+      >
+        {title}
+      </div>
       <div className={styles.navbar_container_btn}>
         {router.pathname === "/ddeco/recorridovirtual" ? (
-       <RxHome size={50} onClick = {() => router.push("/ddeco/categorias")}/>
-          
+          <RxHome size={50} onClick={() => router.push("/ddeco/categorias")} />
         ) : (
-          <Link href="/ddeco/recorridovirtual">
-            <Image
-              className={styles.rvirtual}
-              src="/rvirtual.svg"
-              alt="recorrido virtual icon"
-              width={220}
-              height={220}
-            />
-          </Link>
+          <>
+            <Link href="/ddeco/recorridovirtual">
+              <Image
+                className={styles.rvirtual}
+                src="/rvirtual.svg"
+                alt="recorrido virtual icon"
+                width={220}
+                height={220}
+              />
+            </Link>
+            <Link href="https://exhibidordigital.vercel.app/categorias">
+              <Image
+                className={styles.lineas_principales}
+                src="/lineasPrincipales.png"
+                alt="recorrido virtual icon"
+                width={200}
+                height={200}
+              />
+            </Link>
+          </>
         )}
       </div>
       {/* Este apartado del componente se muestra cuando el ancho la pantalla es menor o igual 768px renderiza condicionalmente dependiendo de `router.pathname` ya sea el icono del dropdown menu o el icono para ir al recorrido virtual. La funcionalidad del abre y cierre del dropdown menu que muestra el componente `SideBar.jsx` esta dada por el hook useState `setToggleSideBar`  */}
@@ -97,7 +114,7 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
         <div className={styles.navbar_toggle_items}>
           <Link href="/ddeco/categorias">
             <Image
-             src={logoDdeco[0].toString()}
+              src={logoDdeco[0].toString()}
               alt="TLapps ddeco logo"
               width={120}
               height={120}
@@ -105,9 +122,11 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
             />
           </Link>
 
-
           {router.pathname === "/ddeco/recorridovirtual" ? (
-            <RxHome size={40} onClick = {() => router.push("/ddeco/categorias")}/>
+            <RxHome
+              size={40}
+              onClick={() => router.push("/ddeco/categorias")}
+            />
           ) : toggleSideBar ? (
             <RiCloseCircleLine
               className="bsmenudown"
@@ -125,19 +144,28 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
           {toggleSideBar && (
             <div className={styles.sidebar_toggle}>
               <div className={styles.sidebar_toggle_rvirtual}>
-                <Link href="/ddeco/recorridovirtual">
-                  <Image
-                    src="/rvirtual.svg"
-                    alt="recorrido virtual icon"
-                    width={145}
-                    height={145}
-                    priority
-                  />
-                </Link>
+                <>
+                  <Link href="/ddeco/recorridovirtual">
+                    <Image
+                      src="/rvirtual.svg"
+                      alt="recorrido virtual icon"
+                      width={145}
+                      height={145}
+                      priority
+                    />
+                  </Link>
+                  <Link href="https://exhibidordigital.vercel.app/categorias">
+                    <Image
+                      className={styles.lineas_principales}
+                      src="/lineasPrincipales.png"
+                      alt="recorrido virtual icon"
+                      width={145}
+                      height={145}
+                    />
+                  </Link>
+                </>
               </div>
               <div className={styles.sidebar_toggle_search}>
-              
-                 
                 <input
                   type="search"
                   name="product"
@@ -149,38 +177,45 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
                 <Search
                   result={result}
                   input={input}
-                  setToggleSideBar= {setToggleSideBar}
+                  setToggleSideBar={setToggleSideBar}
                 />
               </div>
               <div className={styles.sidebar_toggle_categories_item}>
                 <div className={styles.sidebar_toggle_categories_container}>
-                  {categoriesFiltered
-                    .map((item) => (
-                      <div className={styles.category} key={item.id}>
-                        <Link
-                          href={`/ddeco/categoria/${item.category}`}
-                          onClick={() => setToggleSideBar(false)}
-                        >
-                          <div className={styles.category_name}>
-                            {item.category}
-                          </div>
-                        </Link>
-                        <Image
-                          src={item.thumbImg[0]}
-                          width={35}
-                          height={35}
-                          alt={item.category}
-                          priority
-                        />
-                      </div>
-                    ))
-                    }
+                  {categoriesFiltered.map((item) => (
+                    <div className={styles.category} key={item.id}>
+                      <Link
+                        href={`/ddeco/categoria/${item.category}`}
+                        onClick={() => setToggleSideBar(false)}
+                      >
+                        <div className={styles.category_name}>
+                          {item.category}
+                        </div>
+                      </Link>
+                      <Image
+                        src={item.thumbImg[0]}
+                        width={35}
+                        height={35}
+                        alt={item.category}
+                        priority
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           )}
         </div>
-        <div className={styles.navbar_toggle_title} onClick={()=> router.asPath.includes('/ddeco/producto') ? router.push(`/ddeco/categoria/${product.category}`): null} >{title}</div>
+        <div
+          className={styles.navbar_toggle_title}
+          onClick={() =>
+            router.asPath.includes("/ddeco/producto")
+              ? router.push(`/ddeco/categoria/${product.category}`)
+              : null
+          }
+        >
+          {title}
+        </div>
       </div>
     </div>
   );

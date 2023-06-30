@@ -76,7 +76,7 @@ console.log(allCategories.data.data)
 
     //En esta peticion se obtienen las imagenes del backround de la carta de la categoria ddeco del exhibidor, la imagen de fondo de la seccion home ddeco y el logo de la misma 
     const oneDdecoCategory = await axios.get(
-      "https://tlappshop.com/apis/api/categories?filters[Category][$eq]=Tlapps Ddeco&populate=cover,background,thumbnail"
+      "https://tlappshop.com/apis/api/categories?filters[codigo][$eq]=155&populate=cover,background,thumbnail"
     );
   
     const ddecoCategory = oneDdecoCategory.data.data.map(item => (

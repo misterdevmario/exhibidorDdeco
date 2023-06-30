@@ -69,8 +69,9 @@
   }
 }
 @media screen and (max-width: 468px) {
-  .container {
-    background-image: url("../../public/bgcategoriassm.png");
+  .background img {
+    height: 100%;
+    width: auto;
   }
   .card_name {
     font-size: var(--font-sm);

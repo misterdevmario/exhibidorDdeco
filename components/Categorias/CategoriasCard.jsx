@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "./CategoriasCard.module.css";
 
-const CategoriasCard = ({ category, ddecoCategory }) => {
+const CategoriasCard = ({ category,ddecoCategory }) => {
   const router = useRouter();
   const goProducts = (id) => {
     router.push(`/ddeco/categoria/${id}`);
@@ -20,7 +20,7 @@ const CategoriasCard = ({ category, ddecoCategory }) => {
   return (
     <div className={styles.container}>
       <div className={styles.background}>
-        <Image src={bg[0].toString()} alt="logo" width={215} height={150} priority quality={100} />
+        <Image src={bg[0].toString()} alt="logo" width={1920} height={1080} priority quality={100} />
       </div>
 
       <div className={styles.card_container}>
