@@ -43,8 +43,29 @@
   margin-left: 2vw;
   cursor: pointer;
 }
-.lineas_principales, .rvirtual{
+.lineas_principales{
   height: 8vh;
+  width: auto;
+  margin: 1vw;
+}
+
+.navbar_container_logo_home img{
+  height: 8vh;
+  width: auto;
+}
+
+.navbar_container_logo_home{
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  margin-left: 2vw;
+}
+ 
+
+.rvirtual {
+  height: 7vh;
   width: auto;
   margin: 1vw;
 }
@@ -171,7 +192,7 @@
     font-weight: 700;
   }
   .rvirtual {
-    height: 10vh;
+    height: 6.5vh;
     width: auto;
   }
 

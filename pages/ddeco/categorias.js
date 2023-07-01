@@ -54,7 +54,6 @@ export async function getStaticProps() {
     }
   ))
 
-  console.log(ddecoCategory)
 
   const categories = allCategories.data.data.map((item) => ({
     id: item.id,

@@ -64,7 +64,9 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
 
   return (
     <div className={styles.navbar_container}>
-      <Link className={styles.navbar_container_logo} href="/ddeco/categorias">
+    {
+      router.pathname === "/ddeco/categorias"?(
+        <Link className={styles.navbar_container_logo} href="/ddeco/categorias">
         <Image
           src={logoDdeco[0].toString()}
           alt="Tlapps ddeco logo"
@@ -73,6 +75,18 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
           priority
         />
       </Link>
+      ): router.pathname === "/ddeco/categoria/[categoria]" || router.pathname === "/ddeco/producto/[product]" ? (
+        <Link className={styles.navbar_container_logo_home} href="/ddeco/categorias">
+        <Image
+          src="/home.png"
+          alt="Tlapps ddeco logo"
+          width={180}
+          height={180}
+          priority
+        />
+      </Link>
+      ) : null
+    }
       <div
         className={styles.navbar_container_title}
         onClick={() =>
