@@ -71,7 +71,7 @@ export async function getStaticProps() {
     id: item.id,
     category: item.attributes.subCategory,
     img: item.attributes.cover.data.map((item) => item.attributes.url),
-    bgImage: item.attributes.background.data.map((item) => item.attributes.formats.large.url),
+    bgImage: item.attributes.background.data?.map((item) => item.attributes.formats.large.url) == null || item.attributes.background.data?.map((item) => item.attributes.formats.large.url) == undefined ? [ "https://exhibidorddeco.vercel.app/_next/image?url=https%3A%2F%2Ftlappshop-imagenes.s3.amazonaws.com%2FNo_image_available_svg_731bcb13d0.png&w=128&q=75"] :item.attributes.background.data?.map((item) => item.attributes.formats.large.url),
     thumbImg: item.attributes.thumbnail.data.map(item => item.attributes.url),
   }));
 
@@ -81,7 +81,7 @@ export async function getStaticProps() {
     name: item.attributes.description,
     codigo: item.attributes.sku,
     volt: item.attributes.voltaje,
-    img: item.attributes.thumbnail.data.attributes.url,
+    img: item.attributes.thumbnail.data == null || item.attributes.thumbnail.data == undefined ? "https://exhibidorddeco.vercel.app/_next/image?url=https%3A%2F%2Ftlappshop-imagenes.s3.amazonaws.com%2FNo_image_available_svg_731bcb13d0.png&w=128&q=75": item.attributes.thumbnail.data?.attributes.url,
     category: item.attributes.sub_category.data.attributes.subCategory,
   }));
 
@@ -129,5 +129,6 @@ export async function getStaticProps() {
     revalidate: 10,
   };
 }
+
 
 

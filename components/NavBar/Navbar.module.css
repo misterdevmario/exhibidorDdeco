@@ -231,4 +231,23 @@
     width: 90vw;
 
   }
+  .navbar_container_logo_home{
+    display: none;
+  }
+
+  .navbar_toggle_home_logo{
+    height: 7vh;
+    width: auto;
+  }
+  .sidebar_toggle_rvirtual_icon img{
+    height: 5vh;
+    width: auto;
+    margin: 1vh;
+  } 
+
+  .toggle_lineas_principales img{
+    width: auto;
+    height: 7vh;
+    margin: 1vh;
+  }
 }

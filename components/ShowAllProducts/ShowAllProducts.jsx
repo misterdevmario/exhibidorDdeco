@@ -18,7 +18,6 @@ import styles from "./ShowProducts.module.css";
 import { useRouter } from "next/router";
 
 const ShowAllProducts = ({ product, products, categories, categoriesFiltered }) => {
-  console.log(categories)
   const router = useRouter();
   let bgImage = categories.filter(img => img?.category === router.query.categoria).map(item => item.bgImage).toString()
 

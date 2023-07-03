@@ -14,7 +14,13 @@ import NavBar from "../../../components/NavBar/NavBar";
 import Footer from "../../../components/Footer/Footer";
 import ShowOneProduct from "../../../components/ShowOneProduct/ShowOneProduct";
 
-function Producto({ product, categories, products, categoriesFiltered, ddecoCategory }) {
+function Producto({
+  product,
+  categories,
+  products,
+  categoriesFiltered,
+  ddecoCategory,
+}) {
   return (
     <>
       <Head>
@@ -69,38 +75,54 @@ export async function getStaticProps(ctx) {
   const allProducts = await axios.get(
     "https://tlappshop.com/apis/api/products?populate=sub_category,categories,thumbnail,ficha,instructivo,accesorios,galeria&filters[categories][category][$eq]=Tlapps ddeco&pagination[limit]=800"
   );
-console.log(allCategories.data.data)
   const oneProduct = await axios.get(
     `https://tlappshop.com/apis/api/products/${id}?populate=sub_category,categories,thumbnail,ficha,instructivo,accesorios,galeria&filters[categories][category][$eq]=Tlapps ddeco&pagination[limit]=800`
   );
 
-    //En esta peticion se obtienen las imagenes del backround de la carta de la categoria ddeco del exhibidor, la imagen de fondo de la seccion home ddeco y el logo de la misma 
-    const oneDdecoCategory = await axios.get(
-      "https://tlappshop.com/apis/api/categories?filters[codigo][$eq]=155&populate=cover,background,thumbnail"
-    );
-  
-    const ddecoCategory = oneDdecoCategory.data.data.map(item => (
-      {
-        cardImg: item.attributes.cover.data.attributes.formats.large.url,
-        bgImage: item.attributes.background.data.map(item => item.attributes.formats.large.url),
-        logoDdeco: item.attributes.thumbnail.data.map(item => item.attributes.url)
-      }
-    ))
-  
+  //En esta peticion se obtienen las imagenes del backround de la carta de la categoria ddeco del exhibidor, la imagen de fondo de la seccion home ddeco y el logo de la misma
+  const oneDdecoCategory = await axios.get(
+    "https://tlappshop.com/apis/api/categories?filters[codigo][$eq]=155&populate=cover,background,thumbnail"
+  );
 
-    const categories = allCategories.data.data.map((item) => ({
-      id: item.id,
-      category: item.attributes.subCategory,
-      img: item.attributes.cover.data.map((item) => item.attributes.url),
-      bgImage: item.attributes.background.data.map((item) => item.attributes.formats.large.url),
-      thumbImg: item.attributes.thumbnail.data.map(item => item.attributes.url),
-    }));
+  const ddecoCategory = oneDdecoCategory.data.data.map((item) => ({
+    cardImg: item.attributes.cover.data.attributes.formats.large.url,
+    bgImage: item.attributes.background.data.map(
+      (item) => item.attributes.formats.large.url
+    ),
+    logoDdeco: item.attributes.thumbnail.data.map(
+      (item) => item.attributes.url
+    ),
+  }));
+
+  const categories = allCategories.data.data.map((item) => ({
+    id: item.id,
+    category: item.attributes.subCategory,
+    img: item.attributes.cover.data.map((item) => item.attributes.url),
+    bgImage:
+      item.attributes.background.data?.map(
+        (item) => item.attributes.formats.large.url
+      ) == null ||
+      item.attributes.background.data?.map(
+        (item) => item.attributes.formats.large.url
+      ) == undefined
+        ? [
+            "https://exhibidorddeco.vercel.app/_next/image?url=https%3A%2F%2Ftlappshop-imagenes.s3.amazonaws.com%2FNo_image_available_svg_731bcb13d0.png&w=128&q=75",
+          ]
+        : item.attributes.background.data?.map(
+            (item) => item.attributes.formats.large.url
+          ),
+    thumbImg: item.attributes.thumbnail.data.map((item) => item.attributes.url),
+  }));
   const products = allProducts.data.data.map((item) => ({
     id: item.id,
     name: item.attributes.description,
     codigo: item.attributes.sku,
     volt: item.attributes.voltaje,
-    img: item.attributes.thumbnail.data.attributes.url,
+    img:
+      item.attributes.thumbnail.data == null ||
+      item.attributes.thumbnail.data == undefined
+        ? "https://exhibidorddeco.vercel.app/_next/image?url=https%3A%2F%2Ftlappshop-imagenes.s3.amazonaws.com%2FNo_image_available_svg_731bcb13d0.png&w=128&q=75"
+        : item.attributes.thumbnail.data?.attributes.url,
     category: item.attributes.sub_category.data.attributes.subCategory,
   }));
 
@@ -108,13 +130,20 @@ console.log(allCategories.data.data)
     id: oneProduct.data.data.id,
     name: oneProduct.data.data.attributes.description,
     codigo: oneProduct.data.data.attributes.sku,
-     volt: oneProduct.data.data.attributes.voltaje,
-     img: oneProduct.data.data.attributes.thumbnail.data.attributes.url,
-     category: oneProduct.data.data.attributes.sub_category.data.attributes.subCategory,
-    ficha: oneProduct.data.data.attributes.ficha.data.map(item => item.attributes.url),
-    instructivo:oneProduct.data.data.attributes.instructivo.data.map(item => item.attributes.url),
-     galeria: oneProduct.data.data.attributes.galeria.data.map(item => item.attributes.url),
-    video: oneProduct.data.data.attributes.video
+    volt: oneProduct.data.data.attributes.voltaje,
+    img: oneProduct.data.data.attributes.thumbnail.data?.attributes.url == null || oneProduct.data.data.attributes.thumbnail.data?.attributes.url == undefined ? "https://exhibidorddeco.vercel.app/_next/image?url=https%3A%2F%2Ftlappshop-imagenes.s3.amazonaws.com%2FNo_image_available_svg_731bcb13d0.png&w=128&q=75" : oneProduct.data.data.attributes.thumbnail.data?.attributes.url,
+    category:
+      oneProduct.data.data.attributes.sub_category.data.attributes.subCategory,
+    ficha: oneProduct.data.data.attributes.ficha.data.map(
+      (item) => item.attributes.url
+    ),
+    instructivo: oneProduct.data.data.attributes.instructivo.data.map(
+      (item) => item.attributes.url
+    ),
+    galeria: oneProduct.data.data.attributes.galeria.data.map(
+      (item) => item.attributes.url
+    ),
+    video: oneProduct.data.data.attributes.video,
   };
   //Renderizado condicional de categorias en relacion a la existencia del producto
 
@@ -125,7 +154,7 @@ console.log(allCategories.data.data)
         .flat(1)
     )
   );
-  
+
   /* Este código compara la longitud de dos arreglos, `categorías` y `categoríaProductoFiltrado`, y
   asignando la mayor longitud a la variable `categoryFilterLength`. Entonces, está iterando sobre los
   arreglos `categories` y `categoryProductFiltered` usando bucles for anidados, y empujando la coincidencia
@@ -133,18 +162,18 @@ console.log(allCategories.data.data)
   categorías basadas en la existencia de productos en cada categoría, y cree un nuevo arreglo con solo las
   categorías que tienen productos, asegurando que el numero de iteraciones siempre sea tomado del arreglo con
   la longitud mayor para que se itere sobre todas las categorias. */
-  
+
   let categoryFilterLength = 0;
-  
+
   categoryFilterLength =
-  categories.length > categoryProductFiltered.length
-  ? (categoryFilterLength = categories.length)
-  : (categoryFilterLength = categoryProductFiltered.length);
-  
+    categories.length > categoryProductFiltered.length
+      ? (categoryFilterLength = categories.length)
+      : (categoryFilterLength = categoryProductFiltered.length);
+
   for (let i = 0; i < categoryFilterLength; i++) {
     for (let j = 0; j < categoryFilterLength; j++) {
       if (categories[i].category == categoryProductFiltered[j])
-      categoriesFiltered.push(categories[i]);
+        categoriesFiltered.push(categories[i]);
     }
   }
   return {
@@ -153,7 +182,7 @@ console.log(allCategories.data.data)
       products,
       categories,
       product,
-      ddecoCategory
+      ddecoCategory,
     },
     revalidate: 10,
   };

@@ -64,29 +64,31 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
 
   return (
     <div className={styles.navbar_container}>
-    {
-      router.pathname === "/ddeco/categorias"?(
+      {router.pathname === "/ddeco/categorias" ? (
         <Link className={styles.navbar_container_logo} href="/ddeco/categorias">
-        <Image
-          src={logoDdeco[0].toString()}
-          alt="Tlapps ddeco logo"
-          width={180}
-          height={180}
-          priority
-        />
-      </Link>
-      ): router.pathname === "/ddeco/categoria/[categoria]" || router.pathname === "/ddeco/producto/[product]" ? (
-        <Link className={styles.navbar_container_logo_home} href="/ddeco/categorias">
-        <Image
-          src="/home.png"
-          alt="Tlapps ddeco logo"
-          width={180}
-          height={180}
-          priority
-        />
-      </Link>
-      ) : null
-    }
+          <Image
+            src={logoDdeco[0].toString()}
+            alt="Tlapps ddeco logo"
+            width={180}
+            height={180}
+            priority
+          />
+        </Link>
+      ) : router.pathname === "/ddeco/categoria/[categoria]" ||
+        router.pathname === "/ddeco/producto/[product]" ? (
+        <Link
+          className={styles.navbar_container_logo_home}
+          href="/ddeco/categorias"
+        >
+          <Image
+            src="/home.png"
+            alt="Tlapps ddeco logo"
+            width={180}
+            height={180}
+            priority
+          />
+        </Link>
+      ) : null}
       <div
         className={styles.navbar_container_title}
         onClick={() =>
@@ -126,15 +128,29 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
       {/* Este apartado del componente se muestra cuando el ancho la pantalla es menor o igual 768px renderiza condicionalmente dependiendo de `router.pathname` ya sea el icono del dropdown menu o el icono para ir al recorrido virtual. La funcionalidad del abre y cierre del dropdown menu que muestra el componente `SideBar.jsx` esta dada por el hook useState `setToggleSideBar`  */}
       <div className={styles.navbar_toggle}>
         <div className={styles.navbar_toggle_items}>
-          <Link href="/ddeco/categorias">
-            <Image
-              src={logoDdeco[0].toString()}
-              alt="TLapps ddeco logo"
-              width={120}
-              height={120}
-              priority
-            />
-          </Link>
+          {router.pathname === "/ddeco/categorias" ? (
+            <Link href="/ddeco/categorias">
+              <Image
+                src={logoDdeco[0].toString()}
+                alt="Tlapps ddeco logo"
+                width={100}
+                height={100}
+                priority
+              />
+            </Link>
+          ) : router.pathname === "/ddeco/categoria/[categoria]" ||
+            router.pathname === "/ddeco/producto/[product]" ? (
+            <Link href="/ddeco/categorias">
+              <Image
+                className={styles.navbar_toggle_home_logo}
+                src="/home.png"
+                alt="Tlapps ddeco logo"
+                width={100}
+                height={100}
+                priority
+              />
+            </Link>
+          ) : null}
 
           {router.pathname === "/ddeco/recorridovirtual" ? (
             <RxHome
@@ -159,24 +175,28 @@ const NavBar = ({ product, products, categoriesFiltered, ddecoCategory }) => {
             <div className={styles.sidebar_toggle}>
               <div className={styles.sidebar_toggle_rvirtual}>
                 <>
-                  <Link href="/ddeco/recorridovirtual">
-                    <Image
-                      src="/rvirtual.svg"
-                      alt="recorrido virtual icon"
-                      width={145}
-                      height={145}
-                      priority
-                    />
-                  </Link>
-                  <Link href="https://exhibidordigital.vercel.app/categorias">
-                    <Image
-                      className={styles.lineas_principales}
-                      src="/lineasPrincipales.png"
-                      alt="recorrido virtual icon"
-                      width={145}
-                      height={145}
-                    />
-                  </Link>
+                  <div className={styles.sidebar_toggle_rvirtual_icon}>
+                    <Link href="/ddeco/recorridovirtual">
+                      <Image
+                        src="/rvirtual.svg"
+                        alt="recorrido virtual icon"
+                        width={145}
+                        height={145}
+                        priority
+                      />
+                    </Link>
+                  </div>
+
+                  <div className={styles.toggle_lineas_principales}>
+                    <Link href="https://exhibidordigital.vercel.app/categorias">
+                      <Image
+                        src="/lineasPrincipales.png"
+                        alt="recorrido virtual icon"
+                        width={145}
+                        height={145}
+                      />
+                    </Link>
+                  </div>
                 </>
               </div>
               <div className={styles.sidebar_toggle_search}>
