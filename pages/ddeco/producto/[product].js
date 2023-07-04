@@ -145,6 +145,8 @@ export async function getStaticProps(ctx) {
     ),
     video: oneProduct.data.data.attributes.video,
   };
+
+  console.log(product)
   //Renderizado condicional de categorias en relacion a la existencia del producto
 
   const categoryProductFiltered = Array.from(
