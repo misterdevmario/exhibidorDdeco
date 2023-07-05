@@ -5,7 +5,7 @@ Este componente toma el ID de la url dada por YouTube en el atributo `videoId`
 import YouTube from "react-youtube";
 import styles from './Video.module.css'
 
-const Video = () => {
+const Video = ({video}) => {
 
   const opts = {
     height: "500",
@@ -19,7 +19,7 @@ const Video = () => {
 
   return (
     <YouTube className={styles.video}
-      videoId="5ohLrELHgCY"
+      videoId={video}
       opts={opts}
     />
   );

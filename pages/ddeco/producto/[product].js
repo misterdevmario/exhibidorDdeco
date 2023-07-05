@@ -143,8 +143,9 @@ export async function getStaticProps(ctx) {
     galeria: oneProduct.data.data.attributes.galeria.data.map(
       (item) => item.attributes.url
     ),
-    video: oneProduct.data.data.attributes.video,
+    video: oneProduct.data.data.attributes.video == undefined ? null : oneProduct.data.data.attributes.video.replace("https://youtu.be/", ""),
   };
+//'https://youtu.be/RBjAPF9TOCU'
 
   console.log(product)
   //Renderizado condicional de categorias en relacion a la existencia del producto
