@@ -139,15 +139,9 @@ export async function getStaticProps(ctx) {
         : oneProduct.data.data.attributes.thumbnail.data?.attributes.url,
     category:
       oneProduct.data.data.attributes.sub_category.data.attributes.subCategory,
-    ficha: oneProduct.data.data.attributes.ficha.data.map(
-      (item) => item.attributes.url
-    ),
-    instructivo: oneProduct.data.data.attributes.instructivo.data.map(
-      (item) => item.attributes.url
-    ),
-    galeria: oneProduct.data.data.attributes.galeria.data.map(
-      (item) => item.attributes.url
-    ),
+    ficha: oneProduct.data.data.attributes.ficha.data?.map((item) => item.attributes.url) == undefined ? null : oneProduct.data.data.attributes.ficha.data.map((item) => item.attributes.url),
+    instructivo: oneProduct.data.data.attributes.instructivo.data?.map((item) => item.attributes.url) == undefined ? null : oneProduct.data.data.attributes.instructivo.data?.map((item) => item.attributes.url),
+    galeria: oneProduct.data.data.attributes.galeria.data?.map((item) => item.attributes.url) == undefined ? null : oneProduct.data.data.attributes.galeria.data.map((item) => item.attributes.url),
     video:
       oneProduct.data.data.attributes.video == undefined
         ? null
