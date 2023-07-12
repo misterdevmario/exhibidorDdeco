@@ -131,7 +131,12 @@ export async function getStaticProps(ctx) {
     name: oneProduct.data.data.attributes.description,
     codigo: oneProduct.data.data.attributes.sku,
     volt: oneProduct.data.data.attributes.voltaje,
-    img: oneProduct.data.data.attributes.thumbnail.data?.attributes.url == null || oneProduct.data.data.attributes.thumbnail.data?.attributes.url == undefined ? "https://exhibidorddeco.vercel.app/_next/image?url=https%3A%2F%2Ftlappshop-imagenes.s3.amazonaws.com%2FNo_image_available_svg_731bcb13d0.png&w=128&q=75" : oneProduct.data.data.attributes.thumbnail.data?.attributes.url,
+    img:
+      oneProduct.data.data.attributes.thumbnail.data?.attributes.url == null ||
+      oneProduct.data.data.attributes.thumbnail.data?.attributes.url ==
+        undefined
+        ? "https://exhibidorddeco.vercel.app/_next/image?url=https%3A%2F%2Ftlappshop-imagenes.s3.amazonaws.com%2FNo_image_available_svg_731bcb13d0.png&w=128&q=75"
+        : oneProduct.data.data.attributes.thumbnail.data?.attributes.url,
     category:
       oneProduct.data.data.attributes.sub_category.data.attributes.subCategory,
     ficha: oneProduct.data.data.attributes.ficha.data.map(
@@ -143,11 +148,26 @@ export async function getStaticProps(ctx) {
     galeria: oneProduct.data.data.attributes.galeria.data.map(
       (item) => item.attributes.url
     ),
-    video: oneProduct.data.data.attributes.video == undefined ? null : oneProduct.data.data.attributes.video.replace("https://youtu.be/", ""),
+    video:
+      oneProduct.data.data.attributes.video == undefined
+        ? null
+        : oneProduct.data.data.attributes.video.includes(
+            "https://youtu.be/",
+            ""
+          )
+        ? oneProduct.data.data.attributes.video.replace("https://youtu.be/", "")
+        : oneProduct.data.data.attributes.video.includes(
+            "www.youtube.com/watch?v=",
+            ""
+          )
+        ? oneProduct.data.data.attributes.video.replace(
+            "www.youtube.com/watch?v=",
+            ""
+          )
+        : null,
   };
-//'https://youtu.be/RBjAPF9TOCU'
+  //'https://youtu.be/RBjAPF9TOCU'
 
-  console.log(product)
   //Renderizado condicional de categorias en relacion a la existencia del producto
 
   const categoryProductFiltered = Array.from(
